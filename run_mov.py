@@ -1,9 +1,7 @@
 import json
 from classes import Election, Candidate
-from optimize_mov import *
+from optimize_mov import mov_oracle
 import random
-from visualize import *
-import matplotlib.pyplot as plt
 
 random.seed(410)
 def run(i):
