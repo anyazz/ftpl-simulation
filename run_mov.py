@@ -8,12 +8,10 @@ def run(i):
     with open ('comm' + str(i) + '.json', 'r') as fp:
         data = json.load(fp)
 
-    network = data['trustMatrix']
     opinion_attr = "sex"
-    n = len(network)
 
     X = np.concatenate([np.linspace(0,  80, 17)])
-
+    n=32
     Y = [] # FTPL payoff
     BR = [] # BR payoff
     file_X = open("FTPL_X.txt", "w")
@@ -24,7 +22,7 @@ def run(i):
     XAs, XBs = [], []
     A = Candidate("A", 0, 1, n)
     B = Candidate("B", 40, 0, n)
-    e = Election(data, 32, [A, B], 10, opinion_attr, rand=False)
+    e = Election(data, n, [A, B], 10, opinion_attr, rand=False)
     for x in X:
         print("BUDGET ", x)
         file_X.write(str(x) + ', ')
