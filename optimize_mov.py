@@ -1,11 +1,10 @@
 import random
 import numpy as np
 import heapq
-import gurobipy as gp
 import math
 from utils import roundl
     
-def ftpl(e, epsilon, delta):
+def ftpl(e, epsilon, delta, x):
     print(e.n)
     iters = 4 * e.n**2 * max(e.A.k, e.B.k)/(epsilon**2)
     prev_mean = float('inf')
@@ -16,7 +15,7 @@ def ftpl(e, epsilon, delta):
             print("breaking early at ", r)
             break 
         if r % 200 == 0:
-            print("\nFTPL Iteration {} of {}".format(r, iters))
+            print("\nFTPL Iteration {} of {} with budget {}".format(r, iters, x))
             print("current mean: ", e.calculate_mean())
             print("remaining deltas: ({}, {})".format(delta_A, delta_B))
         ftpl_iter(e, e.A, r, epsilon)
