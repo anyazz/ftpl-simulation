@@ -1,23 +1,30 @@
 import random
 import numpy as np
 import heapq
+import gurobipy as gp
 import math
 from utils import roundl
     
-def ftpl(e, epsilon, delta, k):
+def ftpl(e, epsilon, delta):
+    print(e.n)
     iters = 4 * e.n**2 * max(e.A.k, e.B.k)/(epsilon**2)
+    prev_mean = float('inf')
     for r in range(math.ceil(iters)):
-        delta_array_B = np.greater(delta * np.ones(e.n), abs(np.array(e.B.X) - np.mean(e.B.ftpl_history, axis=0)))
-        delta_array_A = np.greater(delta * np.ones(e.n), abs(np.array(e.A.X) - np.mean(e.A.ftpl_history, axis=0)))
-        if r > 1 and all(delta_array_A) and all(delta_array_B):
+        delta_B = sum(abs(np.array(e.B.X) - np.mean(e.B.ftpl_history, axis=0)))
+        delta_A = sum(abs(np.array(e.A.X) - np.mean(e.A.ftpl_history, axis=0)))
+        if r > 1 and (delta_B < delta and delta_A < delta):
             print("breaking early at ", r)
             break 
-        if r % 500 == 0:
-            print("\nFTPL Iteration {} of {}, Budget {}".format(r, iters, k))
+        if r % 200 == 0:
+            print("\nFTPL Iteration {} of {}".format(r, iters))
             print("current mean: ", e.calculate_mean())
-            print("remaining unconverged entries: ({}, {})".format(e.n-sum(delta_array_A), e.n-sum(delta_array_B)))
+            print("remaining deltas: ({}, {})".format(delta_A, delta_B))
         ftpl_iter(e, e.A, r, epsilon)
         ftpl_iter(e, e.B, r, epsilon)
+        # if r > 1 and (abs(prev_mean - e.calculate_mean() < 1e-7)):
+        #     print("breaking early at ", r)
+        #     break
+        prev_mean = e.calculate_mean()
         e.update_network()
 
         # print('RESULT', e.calculate_mean(), e.theta_0)
