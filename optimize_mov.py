@@ -16,6 +16,7 @@ def ftpl(e, epsilon, delta, x):
             break 
         if r % 200 == 0:
             print("\nFTPL Iteration {} of {} for Budget {}".format(r, iters, x))
+
             print("current mean: ", e.calculate_mean())
             print("remaining deltas: ({}, {})".format(delta_A, delta_B))
         ftpl_iter(e, e.A, r, epsilon)
