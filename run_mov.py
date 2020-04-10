@@ -59,7 +59,7 @@ def run(i):
 
 def main():
     Xs, Ys = [], []
-    X, Y = run(4)
+
     Xs.append(X)
     Ys.append(Y)
     X_mean = np.mean(Xs, axis=0)
