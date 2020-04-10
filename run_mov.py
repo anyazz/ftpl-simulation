@@ -12,7 +12,7 @@ def run(i):
     opinion_attr = "sex"
     n = len(network)
 
-    X = np.concatenate([np.linspace(0,  16, 25), np.linspace(18, 30, 7), np.linspace(35, 60, 6), np.linspace(65, 90, 4)])
+    X = np.concatenate([np.linspace(0,  80, 17)])
 
     Y = [] # FTPL payoff
     BR = [] # BR payoff
@@ -20,15 +20,16 @@ def run(i):
     file_BR = open("FTPL_BR.txt", "w")
     file_Y = open("FTPL_Y.txt", "w")
     XAs, XBs = [], []
+    A = Candidate("A", 0, 1, n)
+    B = Candidate("B", 40, 0, n)
+    e = Election(data, [A, B], 10, opinion_attr, rand=False)
     for x in X:
         print("BUDGET ", x)
         file_X.write(str(x) + ', ')
-        A = Candidate("A", x, 1, n)
-        B = Candidate("B", n/2, 0, n)
-        e = Election(data, [A, B], 10, opinion_attr, rand=False)
+        A.k=x
         e.update_network()
 
-        ftpl(e, 3, .1, x)
+        ftpl(e, 5, .1, x)
 
         ftpl_mean = e.calculate_mean()
         XAs.append(A.X)
