@@ -12,12 +12,14 @@ def run(i):
     opinion_attr = "sex"
     n = len(network)
 
-    X = np.concatenate([np.linspace(0,  16, 25), np.linspace(18, 30, 7), np.linspace(35, 60, 6), np.linspace(65, 90, 4)])
+    X = np.concatenate([np.linspace(0,  16, 25), np.linspace(18, 30, 7), np.linspace(35, 60, 6)]) #np.linspace(65, 90, 4)])
     Y = [] # FTPL payoff
     BR = [] # BR payoff
     file_X = open("FTPL_X.txt", "w")
     file_BR = open("FTPL_BR.txt", "w")
     file_Y = open("FTPL_Y.txt", "w")
+    file_XA = open("FTPL_XA.txt", "w")
+    file_XB = open("FTPL_XB.txt", "w")
     XAs, XBs = [], []
     for x in X:
         print("BUDGET ", x)
@@ -29,7 +31,9 @@ def run(i):
         ftpl(e, 3, .1, x)
         ftpl_mean = e.calculate_mean()
         XAs.append(A.X)
+        file_XA.write(str(A.X) + ',')
         XBs.append(B.X)
+        file_XB.write(str(B.X) + ',')
         Y.append(ftpl_mean)
         file_Y.write(str(ftpl_mean)+ ', ')
 
@@ -39,7 +43,7 @@ def run(i):
         BR.append(br_mean)
 
         file_BR.write(str(br_mean) + ', ')
-        for file in [file_X, file_BR, file_Y]:
+        for file in [file_X, file_BR, file_Y, file_XA, file_XB]:
             file.flush()
         print("means: {}, {}".format(ftpl_mean, br_mean))
     file.write("X: {}".format(X))
