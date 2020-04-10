@@ -2,10 +2,11 @@ import json
 from classes import Election, Candidate
 from optimize_mov import mov_oracle
 import random
+import numpy as np
 
 random.seed(410)
 def run(i):
-    with open ('data/json/comm' + str(i) + '.json', 'r') as fp:
+    with open ('comm' + str(i) + '.json', 'r') as fp:
         data = json.load(fp)
 
     network = data['trustMatrix']

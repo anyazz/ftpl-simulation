@@ -1,8 +1,6 @@
 import random
 import numpy as np
-from scipy.stats import norm
 import math
-from poibin import PoiBin
 from utils import *
 np.set_printoptions(threshold=np.inf)
 
@@ -61,20 +59,6 @@ class Election:
         mean = np.sum(self.theta_T)
         return mean
 
-    def calculate_pov_approx(self):
-        mu = self.calculate_mean()
-        square_sum = 0
-        for i in range(self.n):
-            square_sum += self.theta_T[i] ** 2
-        if abs(mu-square_sum) < 1e-4:
-            return np.sign((self.n + 1)/2 - mu)
-        pov = 1 - norm.cdf(((self.n + 1)/2 - mu)/(math.sqrt(mu-square_sum)))
-        return pov
-
-    def calculate_pov_exact(self):
-        self.theta_T = round_probabilities(self.theta_T)
-        pb = PoiBin(self.theta_T)
-        return 1 - pb.cdf(math.floor(self.n/2))
 
     def calculate_homophily(self, theta):
         type1 = set([i for i in range(self.n) if theta[i] > 0.5])
