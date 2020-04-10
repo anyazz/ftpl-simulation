@@ -12,7 +12,7 @@ def run(i):
     opinion_attr = "sex"
     n = len(network)
 
-    X = np.concatenate([np.linspace(18, 30, 7), np.linspace(35, 60, 6), np.linspace(65, 90, 4)])
+    X = np.concatenate([np.linspace(0,  15, 16), np.linspace(18, 30, 7), np.linspace(35, 60, 6), np.linspace(65, 90, 4)])
     Y = [] # FTPL payoff
     BR = [] # BR payoff
     file_X = open("FTPL_X.txt", "w")
