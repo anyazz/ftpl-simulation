@@ -24,7 +24,7 @@ def run(i):
     XAs, XBs = [], []
     A = Candidate("A", 0, 1, n)
     B = Candidate("B", 40, 0, n)
-    e = Election(data, [A, B], 10, opinion_attr, rand=False)
+    e = Election(data, 32, [A, B], 10, opinion_attr, rand=False)
     for x in X:
         print("BUDGET ", x)
         file_X.write(str(x) + ', ')
@@ -61,7 +61,7 @@ def run(i):
 
 def main():
     Xs, Ys = [], []
-    X, Y = run(3)
+    X, Y = run(2)
     Xs.append(X)
     Ys.append(Y)
     X_mean = np.mean(Xs, axis=0)
