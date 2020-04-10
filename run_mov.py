@@ -13,7 +13,6 @@ def run(i):
     n = len(network)
 
     X = np.concatenate([np.linspace(18, 30, 7), np.linspace(35, 60, 6), np.linspace(65, 90, 4)])
-    X = X[::-1]
     Y = [] # FTPL payoff
     BR = [] # BR payoff
     file_X = open("FTPL_X.txt", "w")
@@ -27,7 +26,7 @@ def run(i):
         B = Candidate("B", n/2, 0, n)
         e = Election(data, [A, B], 10, opinion_attr, rand=False)
         e.update_network()
-        ftpl(e, 1, 1e-3)
+        ftpl(e, 1, 1e-3, x)
         ftpl_mean = e.calculate_mean()
         XAs.append(A.X)
         XBs.append(B.X)

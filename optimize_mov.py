@@ -4,7 +4,7 @@ import heapq
 import math
 from utils import roundl
     
-def ftpl(e, epsilon, delta):
+def ftpl(e, epsilon, delta, k):
     iters = 4 * e.n**2 * max(e.A.k, e.B.k)/(epsilon**2)
     for r in range(math.ceil(iters)):
         delta_array_B = np.greater(delta * np.ones(e.n), abs(np.array(e.B.X) - np.mean(e.B.ftpl_history, axis=0)))
@@ -13,7 +13,7 @@ def ftpl(e, epsilon, delta):
             print("breaking early at ", r)
             break 
         if r % 500 == 0:
-            print("\nFTPL Iteration {} of {}".format(r, iters))
+            print("\nFTPL Iteration {} of {}, Budget {}".format(r, iters, k))
             print("current mean: ", e.calculate_mean())
             print("remaining unconverged entries: ({}, {})".format(e.n-sum(delta_array_A), e.n-sum(delta_array_B)))
         ftpl_iter(e, e.A, r, epsilon)
