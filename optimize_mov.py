@@ -7,15 +7,19 @@ from utils import roundl
 def ftpl(e, epsilon, delta):
     iters = 4 * e.n**2 * max(e.A.k, e.B.k)/(epsilon**2)
     for r in range(math.ceil(iters)):
+        delta_array_B = np.greater(delta * np.ones(e.n), abs(np.array(e.B.X) - np.mean(e.B.ftpl_history, axis=0)))
+        delta_array_A = np.greater(delta * np.ones(e.n), abs(np.array(e.A.X) - np.mean(e.A.ftpl_history, axis=0)))
+        if r > 1 and all(delta_array_A) and all(delta_array_B):
+            print("breaking early at ", r)
+            break 
         if r % 500 == 0:
             print("\nFTPL Iteration {} of {}".format(r, iters))
             print("current mean: ", e.calculate_mean())
+            print("remaining unconverged entries: ({}, {})".format(e.n-sum(delta_array_A), e.n-sum(delta_array_B)))
         ftpl_iter(e, e.A, r, epsilon)
         ftpl_iter(e, e.B, r, epsilon)
         e.update_network()
-        if r > 1 and all(np.greater(delta * np.ones(e.n), abs(np.array(e.B.X) - np.mean(e.B.ftpl_history, axis=0)))) and all(np.greater(delta * np.ones(e.n), abs(np.array(e.A.X) - np.mean(e.A.ftpl_history, axis=0)))):
-            print("breaking early at ", r)
-            break 
+
         # print('RESULT', e.calculate_mean(), e.theta_0)
     # print("\nEquilibrium after {} iters: ".format(iters))
 
