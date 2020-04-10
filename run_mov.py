@@ -1,8 +1,7 @@
 import json
 from classes import Election, Candidate
-from optimize_mov import mov_oracle
+from optimize_mov import *
 import random
-import numpy as np
 
 random.seed(410)
 def run(i):
@@ -14,6 +13,7 @@ def run(i):
     n = len(network)
 
     X = np.concatenate([np.linspace(10./3,  16, 20), np.linspace(18, 30, 7), np.linspace(35, 60, 6), np.linspace(65, 90, 4)])
+    X = X[::-1]
     Y = [] # FTPL payoff
     BR = [] # BR payoff
     file_X = open("FTPL_X.txt", "w")
@@ -60,8 +60,8 @@ def main():
     X_mean = np.mean(Xs, axis=0)
     Y_mean = np.mean(Ys, axis=0)
     print(X_mean, Y_mean)
-    plt.scatter(X, Y)
-    plt.show()
-    plt.savefig('ftpl.png', dpi=300)
+    # plt.scatter(X, Y)
+    # plt.show()
+    # plt.savefig('ftpl.png', dpi=300)
 
 main()
