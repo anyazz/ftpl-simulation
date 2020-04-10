@@ -4,11 +4,11 @@ import heapq
 import math
 from utils import roundl
     
-def ftpl(e, epsilon, delta):
+def ftpl(e, epsilon, delta, k):
     iters = 4 * e.n**2 * max(e.A.k, e.B.k)/(epsilon**2)
     for r in range(math.ceil(iters)):
         if r % 500 == 0:
-            print("\nFTPL Iteration {} of {}".format(r, iters))
+            print("\nFTPL Iteration {} of {}, Budget {}".format(r, iters, k))
             print("current mean: ", e.calculate_mean())
         ftpl_iter(e, e.A, r, epsilon)
         ftpl_iter(e, e.B, r, epsilon)
