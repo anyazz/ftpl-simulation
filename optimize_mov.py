@@ -1,7 +1,7 @@
 import random
 import numpy as np
-import heapq
 import math
+import heapq
 from utils import roundl
     
 def ftpl(e, epsilon, delta, x):
@@ -15,7 +15,8 @@ def ftpl(e, epsilon, delta, x):
             print("breaking early at ", r)
             break 
         if r % 200 == 0:
-            print("\nFTPL Iteration {} of {} with budget {}".format(r, iters, x))
+            print("\nFTPL Iteration {} of {} for Budget {}".format(r, iters, x))
+
             print("current mean: ", e.calculate_mean())
             print("remaining deltas: ({}, {})".format(delta_A, delta_B))
         ftpl_iter(e, e.A, r, epsilon)
