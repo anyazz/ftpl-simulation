@@ -5,7 +5,7 @@ import random
 
 random.seed(410)
 def run(i):
-    with open ('comm' + str(i) + '.json', 'r') as fp:
+    with open ('json/comm' + str(i) + '.json', 'r') as fp:
         data = json.load(fp)
 
     opinion_attr = "sex"
@@ -46,7 +46,6 @@ def run(i):
     return X, np.array(Y)-np.array(BR)
 
 def main():
-    run(3)
     for i in range(0, 15):
         run(i)
     # Xs, Ys = [], []
