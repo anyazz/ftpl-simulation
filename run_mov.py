@@ -11,7 +11,6 @@ def run(i):
     opinion_attr = "sex"
 
     X = [0, 3, 6, 9, 15, 20, 30, 45, 60, 80, 100, 120, 150, 200, 300]
-    X=X[:2]
     n = 32
     Y = [] # FTPL payoff
     BR = [] # BR payoff
@@ -46,7 +45,7 @@ def run(i):
     return X, np.array(Y)-np.array(BR)
 
 def main():
-    for i in range(0, 15):
+    for i in range(1, 15):
         run(i)
     # Xs, Ys = [], []
     # X, Y = run(3)
