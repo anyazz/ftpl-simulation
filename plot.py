@@ -4,19 +4,21 @@ import numpy as np
 
 BR_list = []
 Y_list = []
-for i in range(2, 15):
-    file_BR = open("data/{}_br.txt".format(i), "r")
+for i in range(2, 3):
+    file_BR = open("data_fixed_sum/{}_br.txt".format(i), "r")
     s = file_BR.readline().split(", ")[:-1]
     br = [float(e) for e in s]
     BR_list.append(br)
-    file_Y = open("data/{}_Y.txt".format(i), "r")
+    file_Y = open("data_fixed_sum/{}_Y.txt".format(i), "r")
     s = file_Y.readline().split(", ")[:-1]
     y = [float(e) for e in s]
     Y_list.append(y)
 
-X = [0, 3, 6, 9, 15, 20, 30, 45, 60, 80, 100, 120, 150, 200, 300]
+X = np.linspace(0, 100, 11)
+# X = [0, 3, 6, 9, 15, 20, 30, 45, 60, 80, 100, 120, 150, 200, 300]
 fig, axes = plt.subplots(nrows=1, ncols=2)
 Y_ = np.mean(Y_list, axis=0)
+print(Y_)
 BR_ = np.mean(BR_list, axis=0)
 # fig, axes = plt.subplots(nrows=1, ncols=2)
 y = axes[0].scatter(X, Y_, label = r'FTPL')
