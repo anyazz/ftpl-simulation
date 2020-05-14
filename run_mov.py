@@ -15,8 +15,8 @@ def run(i):
     n = 32
     Y = [] # FTPL payoff
     BR = [] # BR payoff
-    file_BR = open("data_fixed_sum/{}_br.txt".format(i), "w")
-    file_Y = open("data_fixed_sum/{}_Y.txt".format(i), "w")
+    file_BR = open("data_fixed_sum_slurm/{}_br.txt".format(i), "w")
+    file_Y = open("data_fixed_sum_slurm/{}_Y.txt".format(i), "w")
     A = Candidate("A", 0, 1, n)
     B = Candidate("B", 0, 0, n)
     e = Election(data, n, [A, B], 10, opinion_attr, rand=False)
