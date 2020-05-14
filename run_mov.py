@@ -10,18 +10,20 @@ def run(i):
 
     opinion_attr = "sex"
 
-    X = [0, 3, 6, 9, 15, 20, 30, 45, 60, 80, 100, 120, 150, 200, 300]
+    # X = [0, 3, 6, 9, 15, 20, 30, 45, 60, 80, 100, 120, 150, 200, 300]
+    X = np.linspace(0, 120, 13)
     n = 32
     Y = [] # FTPL payoff
     BR = [] # BR payoff
-    file_BR = open("data/{}_br.txt".format(i), "w")
-    file_Y = open("data/{}_Y.txt".format(i), "w")
+    file_BR = open("data_fixed_sum/{}_br.txt".format(i), "w")
+    file_Y = open("data_fixed_sum/{}_Y.txt".format(i), "w")
     A = Candidate("A", 0, 1, n)
-    B = Candidate("B", 30, 0, n)
+    B = Candidate("B", 0, 0, n)
     e = Election(data, n, [A, B], 10, opinion_attr, rand=False)
     for x in X:
         print("BUDGET ", x)
         A.k=x
+        B.k = 100-x
         e.update_network()
 
         ftpl(e, 5, .1, x)
@@ -45,7 +47,7 @@ def run(i):
     return X, np.array(Y)-np.array(BR)
 
 def main():
-    for i in range(1, 15):
+    for i in range(1, 3):
         run(i)
     # Xs, Ys = [], []
     # X, Y = run(3)
